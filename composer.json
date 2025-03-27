@@ -1,23 +1,32 @@
 {
-    "name": "webkult/laravel-smtp-mailing",
-    "description": "This package allows you to integrate an API to your Project to send Mails via FROM Parameter with diffrent SMTP Accounts change via FROM",
-    "type": "library",
-    "autoload": {
-        "psr-4": {
-            "Webkult\\LaravelSmtpMailing\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Benjamin Klein",
-            "email": "info@webkult.de"
-        }
-    ],
-    "require-dev": {
-        "rector/rector": "^2.0"
-    },
-    "require": {
-        "laravel/framework": "11",
-        "spatie/laravel-data": "^4.14"
+  "name": "webkult/laravel-smtp-mailing",
+  "description": "This package allows you to integrate an API to your Project to send Mails via FROM Parameter with diffrent SMTP Accounts change via FROM",
+  "type": "library",
+  "version": "0.0.1",
+  "license": "GPL-3.0-or-later",
+  "autoload": {
+    "psr-4": {
+      "Webkult\\LaravelSmtpMailing\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Webkult\\LaravelSmtpMailing\\Tests\\": "tests/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Benjamin Klein",
+      "email": "info@webkult.de"
+    }
+  ],
+  "require-dev": {
+    "rector/rector": "^2.0",
+    "driftingly/rector-laravel": "^2.0"
+  },
+  "require": {
+    "php": "^8.2",
+    "laravel/framework": "^11|^12",
+    "spatie/laravel-data": "^4.14"
+  }
 }
