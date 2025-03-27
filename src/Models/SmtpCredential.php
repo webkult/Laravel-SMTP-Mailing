@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Webkult\LaravelSmtpMailing\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SmtpCredential extends Model
 {
@@ -21,31 +23,23 @@ class SmtpCredential extends Model
         'password',
     ];
 
-    protected $casts = [
-        'port' => 'integer',
-    ];
-
     protected $hidden = [
         'password',
     ];
-
-    /**
-     * Optional: Falls du das Passwort verschlüsseln willst.
-     * Aktivieren durch Verschlüsselung beim Setzen.
-     */
-    public function setPasswordAttribute($value)
+    protected function password(): Attribute
     {
-        $this->attributes['password'] = encrypt($value);
+        return Attribute::make(get: fn($value) => decrypt($value), set: fn($value) => ['password' => encrypt($value)]);
     }
 
-    public function getPasswordAttribute($value)
-    {
-        return decrypt($value);
-    }
-
-    public function aliases()
+    public function aliases(): HasMany
     {
         return $this->hasMany(SmtpAccountAlias::class);
+    }
+    protected function casts(): array
+    {
+        return [
+            'port' => 'integer',
+        ];
     }
 
 }

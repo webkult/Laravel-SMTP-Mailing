@@ -6,6 +6,7 @@ namespace Webkult\LaravelSmtpMailing\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SmtpAccountAlias extends Model
 {
@@ -20,12 +21,12 @@ class SmtpAccountAlias extends Model
 
     protected static function booted(): void
     {
-        static::saving(function ($model) {
-            $model->from_email = strtolower($model->from_email);
+        static::saving(static function ($model) {
+            $model->from_email = strtolower((string)$model->from_email);
         });
     }
 
-    public function smtpCredential()
+    public function smtpCredential(): BelongsTo
     {
         return $this->belongsTo(SmtpCredential::class);
     }
