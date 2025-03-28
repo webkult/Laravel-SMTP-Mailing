@@ -19,15 +19,16 @@ class SmtpCredentialService implements SmtpCredentialServiceContract
     ) {
     }
 
-    public function create(array $data): SmtpCredential
+    public function create(SmtpCredentialData $data): SmtpCredential
     {
         return $this->createAction->execute($data);
     }
 
-    public function update(SmtpCredential $smtpCredential, array $data): SmtpCredential
+    public function update(SmtpCredential $smtpCredential, SmtpCredentialData $data): SmtpCredential
     {
         return $this->updateAction->execute($smtpCredential, $data);
     }
+
 
     public function delete(SmtpCredential $smtpCredential): bool
     {
