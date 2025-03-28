@@ -1,0 +1,18 @@
+name: Notify Packagist
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  packagist:
+    name: Trigger Packagist Update
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Notify Packagist
+        run: |
+          curl -X POST https://packagist.org/api/update-package \
+            -d '{"repository":"https://github.com/webkult/laravel-smtp-mailing"}' \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer ${{ secrets.PACKAGIST_TOKEN }}"

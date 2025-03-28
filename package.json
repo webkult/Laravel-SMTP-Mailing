@@ -1,0 +1,23 @@
+{
+  "name": "webkult/laravel-smtp-mailing",
+  "version": "1.0.0",
+  "description": "Send mails via FROM alias mapped to specific SMTP credentials in Laravel",
+  "keywords": [
+    "laravel",
+    "smtp",
+    "mail",
+    "package",
+    "api",
+    "dynamic"
+  ],
+  "license": "GPL-3.0-or-later",
+  "scripts": {
+    "release": "semantic-release"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.1",
+    "semantic-release": "^24.2.3"
+  }
+}

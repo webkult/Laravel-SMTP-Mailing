@@ -1,0 +1,51 @@
+name: CI & Release
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - 'v*.*.*'
+  pull_request:
+
+jobs:
+  test:
+    name: Run Pest Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, sqlite, openssl
+          tools: composer
+
+      - name: Validate composer.json
+        run: composer validate --strict
+
+      - name: Install Dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Run Tests
+        run: composer test
+
+  release:
+    name: Create GitHub Release + Packagist Trigger
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Extract Changelog for Tag
+        id: changelog
+        run: |
+          TAG_NAME=${GITHUB_REF##*/}
+          BODY=$(awk "/## \[$TAG_NAME\]/,/^##/" CHANGELOG.md | sed '1d;$d')
+          BODY="${BODY//'%'/'%25'}"
+          BODY="${BODY//$'\n'/'%0A'}"
+          BODY="${BODY//$'\r'/'%0D'}"
+          echo "body=$BODY" >> $

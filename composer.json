@@ -40,5 +40,12 @@
   },
   "scripts": {
     "test": "pest"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Webkult\\LaravelSmtpMailing\\LaravelSmtpMailingServiceProvider"
+      ]
+    }
   }
 }
