@@ -16,9 +16,11 @@ use Webkult\LaravelSmtpMailing\Services\MailDispatchService;
 
 uses(RefreshDatabase::class);
 
-it('sends an email with correct dynamic smtp configuration', function () {
+beforeEach(function () {
     Mail::fake();
+});
 
+it('sends an email with correct dynamic smtp configuration', function () {
     $smtp = SmtpCredential::create([
         'host' => 'smtp.example.com',
         'port' => 587,
@@ -70,7 +72,6 @@ it('throws exception when alias is missing', function () {
 })->throws(SmtpAliasNotFoundException::class);
 
 it('sends email with attachment', function () {
-    Mail::fake();
     Storage::fake('local');
 
     $smtp = SmtpCredential::create([
@@ -106,8 +107,6 @@ it('sends email with attachment', function () {
 });
 
 it('queues the email when should queue is enabled', function () {
-    Mail::fake();
-
     $smtp = SmtpCredential::create([
         'host' => 'smtp.example.com',
         'port' => 587,

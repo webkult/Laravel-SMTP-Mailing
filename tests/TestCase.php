@@ -11,17 +11,15 @@ abstract class TestCase extends BaseTestCase
 {
     protected function getPackageProviders($app): array
     {
-        return [
-            LaravelSmtpMailingServiceProvider::class,
-        ];
+        return [LaravelSmtpMailingServiceProvider::class];
     }
 
     protected function defineEnvironment($app): void
     {
+        $app['config']->set('app.key', 'base64:'.base64_encode(random_bytes(32)));
+
         $app['config']->set('mail.default', 'log');
-        $app['config']->set('mail.mailers.log', [
-            'transport' => 'log',
-        ]);
+        $app['config']->set('mail.mailers.log', ['transport' => 'log']);
 
         $app['config']->set('database.default', 'testing');
         $app['config']->set('database.connections.testing', [
@@ -29,5 +27,10 @@ abstract class TestCase extends BaseTestCase
             'database' => ':memory:',
             'prefix' => '',
         ]);
+    }
+
+    protected function defineDatabaseMigrations(): void
+    {
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 }
