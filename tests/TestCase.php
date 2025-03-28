@@ -22,5 +22,12 @@ abstract class TestCase extends BaseTestCase
         $app['config']->set('mail.mailers.log', [
             'transport' => 'log',
         ]);
+
+        $app['config']->set('database.default', 'testing');
+        $app['config']->set('database.connections.testing', [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+        ]);
     }
 }
