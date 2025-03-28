@@ -26,15 +26,17 @@ class SmtpCredential extends Model
     protected $hidden = [
         'password',
     ];
-    protected function password(): Attribute
-    {
-        return Attribute::make(get: fn($value) => decrypt($value), set: fn($value) => ['password' => encrypt($value)]);
-    }
 
     public function aliases(): HasMany
     {
         return $this->hasMany(SmtpAccountAlias::class);
     }
+
+    protected function password(): Attribute
+    {
+        return Attribute::make(get: fn($value) => decrypt($value), set: fn($value) => ['password' => encrypt($value)]);
+    }
+
     protected function casts(): array
     {
         return [

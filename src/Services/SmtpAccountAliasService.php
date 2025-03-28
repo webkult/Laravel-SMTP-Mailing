@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Webkult\LaravelSmtpMailing\Services;
 
-use Webkult\LaravelSmtpMailing\Contracts\SmtpAccountAliasServiceContract;
 use Webkult\LaravelSmtpMailing\Actions\SmtpAccountAlias\CreateSmtpAccountAliasAction;
-use Webkult\LaravelSmtpMailing\Actions\SmtpAccountAlias\UpdateSmtpAccountAliasAction;
 use Webkult\LaravelSmtpMailing\Actions\SmtpAccountAlias\DeleteSmtpAccountAliasAction;
+use Webkult\LaravelSmtpMailing\Actions\SmtpAccountAlias\UpdateSmtpAccountAliasAction;
+use Webkult\LaravelSmtpMailing\Contracts\SmtpAccountAliasServiceContract;
 use Webkult\LaravelSmtpMailing\Models\SmtpAccountAlias;
 
 class SmtpAccountAliasService implements SmtpAccountAliasServiceContract
@@ -16,7 +16,8 @@ class SmtpAccountAliasService implements SmtpAccountAliasServiceContract
         protected CreateSmtpAccountAliasAction $createAction,
         protected UpdateSmtpAccountAliasAction $updateAction,
         protected DeleteSmtpAccountAliasAction $deleteAction
-    ) {}
+    ) {
+    }
 
     public function create(array $data): SmtpAccountAlias
     {

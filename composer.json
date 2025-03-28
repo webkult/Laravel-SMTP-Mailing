@@ -22,11 +22,23 @@
   ],
   "require-dev": {
     "rector/rector": "^2.0",
-    "driftingly/rector-laravel": "^2.0"
+    "driftingly/rector-laravel": "^2.0",
+    "pestphp/pest": "^2.36",
+    "pestphp/pest-plugin-laravel": "^2.3",
+    "mockery/mockery": "^1.6",
+    "orchestra/testbench": "^9.12"
   },
   "require": {
     "php": "^8.2",
     "laravel/framework": "^11|^12",
     "spatie/laravel-data": "^4.14"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  },
+  "scripts": {
+    "test": "pest"
   }
 }

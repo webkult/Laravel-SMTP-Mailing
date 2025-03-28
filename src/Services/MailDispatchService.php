@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Webkult\LaravelSmtpMailing\Services;
 
-use Illuminate\Http\UploadedFile;
-use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 use Webkult\LaravelSmtpMailing\Data\SendMailData;
 use Webkult\LaravelSmtpMailing\Exceptions\SmtpAliasNotFoundException;
+use Webkult\LaravelSmtpMailing\Mail\OutboundMail;
 use Webkult\LaravelSmtpMailing\Models\SmtpAccountAlias;
 use Webkult\LaravelSmtpMailing\Models\SmtpCredential;
 
 class MailDispatchService
 {
+    const MAILER_NAME = 'smtp_mailer';
+
     /**
      * @throws SmtpAliasNotFoundException
      */
@@ -23,71 +23,40 @@ class MailDispatchService
     {
         $fromEmail = strtolower($data->from);
 
-        /** @var SmtpAccountAlias|null $alias */
         $alias = SmtpAccountAlias::where('from_email', $fromEmail)->first();
 
-        if (!$alias) {
+        if (! $alias) {
             throw new SmtpAliasNotFoundException("No SMTP alias found for {$fromEmail}");
         }
 
         $smtp = $alias->smtpCredential;
+        $configName = $this->getMailerName($fromEmail);
 
-        $this->configureMailer($smtp);
+        $this->configureMailer($smtp, $configName);
 
-        Mail::send([], [], static function (Message $message) use ($data, $fromEmail) {
-            $message->from($fromEmail);
-            $message->to($data->to);
-            $message->subject($data->subject);
-            $message->setBody($data->message, 'text/html');
-
-            if ($data->cc !== null) {
-                $message->cc($data->cc);
-            }
-
-            if ($data->bcc !== null) {
-                $message->bcc($data->bcc);
-            }
-
-            if (!empty($data->reply_to)) {
-                $message->replyTo($data->reply_to);
-            }
-
-            if (!empty($data->headers)) {
-                foreach ($data->headers as $header) {
-                    $message->getHeaders()->addTextHeader($header->key, $header->value);
-                }
-            }
-
-            if (!empty($data->attachments)) {
-                foreach ($data->attachments as $attachment) {
-                    if ($attachment instanceof UploadedFile) {
-                        $message->attach($attachment->getRealPath(), [
-                            'as' => $attachment->getClientOriginalName(),
-                            'mime' => $attachment->getMimeType(),
-                        ]);
-                    } elseif (is_string($attachment) && file_exists($attachment)) {
-                        $message->attach($attachment);
-                    }
-                }
-            }
-        });
+        Mail::mailer($configName)
+            ->to($data->to)
+            ->cc($data->cc)
+            ->bcc($data->bcc)
+            ->send(new OutboundMail($data));
     }
 
-    protected function configureMailer(SmtpCredential $smtp): void
+    protected function getMailerName(string $fromEmail): string
     {
-        $customMailerName = 'smtp_mailer_' . Str::uuid();
+        return self::MAILER_NAME . '_' . md5($fromEmail);
+    }
 
-        Config::set("mail.mailers.{$customMailerName}", [
-            'transport' => 'smtp',
-            'host' => $smtp->host,
-            'port' => $smtp->port,
+    protected function configureMailer(SmtpCredential $smtp, string $configName): void
+    {
+        Config::set("mail.mailers.{$configName}", [
+            'transport'  => 'smtp',
+            'host'       => $smtp->host,
+            'port'       => $smtp->port,
             'encryption' => $smtp->encryption,
-            'username' => $smtp->username,
-            'password' => decrypt($smtp->password),
-            'timeout' => null,
-            'auth_mode' => null,
+            'username'   => $smtp->username,
+            'password'   => decrypt($smtp->password),
+            'timeout'    => null,
+            'auth_mode'  => null,
         ]);
-
-        Config::set('mail.default', $customMailerName);
     }
 }

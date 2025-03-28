@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Webkult\LaravelSmtpMailing\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Throwable;
 use Webkult\LaravelSmtpMailing\Data\SendMailData;
 use Webkult\LaravelSmtpMailing\Exceptions\SmtpAliasNotFoundException;
 use Webkult\LaravelSmtpMailing\Services\MailDispatchService;
@@ -25,7 +26,7 @@ class MailController
                 'success' => false,
                 'message' => $e->getMessage(),
             ], 422);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Versand fehlgeschlagen: ' . $e->getMessage(),

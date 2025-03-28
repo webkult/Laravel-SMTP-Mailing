@@ -23,5 +23,6 @@ class SmtpCredentialData extends Data
 
         #[Required]
         public string $password,
-    ) {}
+    ) {
+    }
 }

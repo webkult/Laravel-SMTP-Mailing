@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Webkult\LaravelSmtpMailing\Data;
 
-use Spatie\LaravelData\Attributes\Validation\Required;
 use Spatie\LaravelData\Attributes\Validation\Email;
+use Spatie\LaravelData\Attributes\Validation\Required;
 use Spatie\LaravelData\Data;
 
 class SmtpAccountAliasData extends Data
@@ -16,5 +16,6 @@ class SmtpAccountAliasData extends Data
 
         #[Required]
         public int $smtp_credential_id,
-    ) {}
+    ) {
+    }
 }
