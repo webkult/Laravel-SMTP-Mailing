@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Webkult\LaravelSmtpMailing\Data\SendMailData;
 use Webkult\LaravelSmtpMailing\Exceptions\SmtpAliasNotFoundException;
 use Webkult\LaravelSmtpMailing\Models\SmtpAccountAlias;
+use Webkult\LaravelSmtpMailing\Models\SmtpCredential;
 
 class MailDispatchService
 {
@@ -33,7 +34,7 @@ class MailDispatchService
 
         $this->configureMailer($smtp);
 
-        Mail::send([], [], function (Message $message) use ($data, $fromEmail) {
+        Mail::send([], [], static function (Message $message) use ($data, $fromEmail) {
             $message->from($fromEmail);
             $message->to($data->to);
             $message->subject($data->subject);
@@ -45,6 +46,16 @@ class MailDispatchService
 
             if ($data->bcc !== null) {
                 $message->bcc($data->bcc);
+            }
+
+            if (!empty($data->reply_to)) {
+                $message->replyTo($data->reply_to);
+            }
+
+            if (!empty($data->headers)) {
+                foreach ($data->headers as $header) {
+                    $message->getHeaders()->addTextHeader($header->key, $header->value);
+                }
             }
 
             if (!empty($data->attachments)) {
@@ -62,19 +73,19 @@ class MailDispatchService
         });
     }
 
-    protected function configureMailer($smtp): void
+    protected function configureMailer(SmtpCredential $smtp): void
     {
         $customMailerName = 'smtp_mailer_' . Str::uuid();
 
         Config::set("mail.mailers.{$customMailerName}", [
-            'transport'  => 'smtp',
-            'host'       => $smtp->host,
-            'port'       => $smtp->port,
+            'transport' => 'smtp',
+            'host' => $smtp->host,
+            'port' => $smtp->port,
             'encryption' => $smtp->encryption,
-            'username'   => $smtp->username,
-            'password'   => decrypt($smtp->password),
-            'timeout'    => null,
-            'auth_mode'  => null,
+            'username' => $smtp->username,
+            'password' => decrypt($smtp->password),
+            'timeout' => null,
+            'auth_mode' => null,
         ]);
 
         Config::set('mail.default', $customMailerName);

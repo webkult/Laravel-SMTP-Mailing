@@ -30,6 +30,12 @@ class SendMailData extends Data
         #[Email]
         public ?string $bcc = null,
 
+        #[Email]
+        public ?string $reply_to = null,
+
+        /** @var HeaderData[]|null */
+        public ?array $headers = null,
+
         /** @var array<UploadedFile|string>|null */
         public ?array $attachments = null
     ) {
