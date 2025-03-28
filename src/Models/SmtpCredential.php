@@ -9,6 +9,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * Class SmtpCredential
+ *
+ * @package Webkult\LaravelSmtpMailing\Models
+ *
+ * @property string $host
+ * @property int $port
+ * @property string $encryption
+ * @property string $username
+ * @property string $password
+ */
 class SmtpCredential extends Model
 {
     use HasFactory;
