@@ -16,10 +16,10 @@ abstract class TestCase extends BaseTestCase
 
     protected function defineEnvironment($app): void
     {
-        $app['config']->set('app.key', 'base64:'.base64_encode(random_bytes(32)));
+        $app['config']->set('app.key', 'base64:' . base64_encode(random_bytes(32)));
 
         $app['config']->set('mail.default', 'log');
-        $app['config']->set('mail.mailers.log', ['transport' => 'log']);
+        $app['config']->set('mail.mailers.log', ['transport' => 'log', 'channel' => env('MAIL_LOG_CHANNEL')]);
 
         $app['config']->set('database.default', 'testing');
         $app['config']->set('database.connections.testing', [

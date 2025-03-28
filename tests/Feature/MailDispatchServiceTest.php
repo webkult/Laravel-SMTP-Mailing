@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+
+use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -16,11 +18,9 @@ use Webkult\LaravelSmtpMailing\Services\MailDispatchService;
 
 uses(RefreshDatabase::class);
 
-beforeEach(function () {
-    Mail::fake();
-});
-
 it('sends an email with correct dynamic smtp configuration', function () {
+    Mail::fake();
+
     $smtp = SmtpCredential::create([
         'host' => 'smtp.example.com',
         'port' => 587,
