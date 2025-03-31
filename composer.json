@@ -43,7 +43,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Webkult\\LaravelSmtpMailing\\LaravelSmtpMailingServiceProvider"
+        "Webkult\\LaravelSmtpMailing\\Providers\\LaravelSmtpMailingServiceProvider"
       ]
     }
   }

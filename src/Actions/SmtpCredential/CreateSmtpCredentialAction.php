@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace Webkult\LaravelSmtpMailing\Actions\SmtpCredential;
 
+use Webkult\LaravelSmtpMailing\Contracts\SmtpCredentialModelContract;
 use Webkult\LaravelSmtpMailing\Data\SmtpCredentialData;
-use Webkult\LaravelSmtpMailing\Models\SmtpCredential;
 
 class CreateSmtpCredentialAction
 {
-    public function execute(SmtpCredentialData $data): SmtpCredential
+    public function __construct(
+        private readonly SmtpCredentialModelContract $model
+    ) {
+    }
+
+    public function execute(SmtpCredentialData $data): SmtpCredentialModelContract
     {
-        return SmtpCredential::create($data->toArray());
+        return $this->model::create($data->toArray());
     }
 }

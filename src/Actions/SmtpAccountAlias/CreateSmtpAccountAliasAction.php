@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace Webkult\LaravelSmtpMailing\Actions\SmtpAccountAlias;
 
+use Webkult\LaravelSmtpMailing\Contracts\SmtpAccountAliasModelContract;
 use Webkult\LaravelSmtpMailing\Data\SmtpAccountAliasData;
-use Webkult\LaravelSmtpMailing\Models\SmtpAccountAlias;
 
 class CreateSmtpAccountAliasAction
 {
-    public function execute(SmtpAccountAliasData $data): SmtpAccountAlias
-    {
-        return SmtpAccountAlias::create($data->toArray());
+    public function __construct(
+        private readonly SmtpAccountAliasModelContract $model
+    ) {
     }
 
+    public function execute(SmtpAccountAliasData $data): SmtpAccountAliasModelContract
+    {
+        return $this->model::create($data->toArray());
+    }
 }
