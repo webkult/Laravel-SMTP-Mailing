@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.9.0...v1.10.0) (2025-03-31)
+
+
+### Features
+
+* add contracts to overwrite support ([1b94425](https://github.com/webkult/Laravel-SMTP-Mailing/commit/1b94425b119e398fd6eeafe545792ca178bcdbcf))
+
 # [1.9.0](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.8.0...v1.9.0) (2025-03-31)
 
 
