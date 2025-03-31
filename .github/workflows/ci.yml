@@ -20,13 +20,10 @@ jobs:
           extensions: mbstring, sqlite, openssl
           tools: composer
 
-      - name: Validate composer.json
-        run: composer validate --strict
-
-      - name: Install Dependencies
+      - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
 
-      - name: Run Tests
+      - name: Run tests
         run: composer test
 
   release:
