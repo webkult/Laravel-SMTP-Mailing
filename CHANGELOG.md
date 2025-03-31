@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.2.0...v1.3.0) (2025-03-31)
+
+
+### Features
+
+* update package json ([b1e366c](https://github.com/webkult/Laravel-SMTP-Mailing/commit/b1e366c5449d03a19555c8c0ead21bcacf6cd006))
+
 # [1.2.0](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.1.0...v1.2.0) (2025-03-31)
 
 
