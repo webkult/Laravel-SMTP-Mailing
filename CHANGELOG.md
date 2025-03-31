@@ -1,3 +1,10 @@
+## [1.11.2](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.11.1...v1.11.2) (2025-03-31)
+
+
+### Bug Fixes
+
+* remove decrypt we already decrypt in model ([68371de](https://github.com/webkult/Laravel-SMTP-Mailing/commit/68371de98b2101e433afea24fca7d998c8de7f4a))
+
 ## [1.11.1](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.11.0...v1.11.1) (2025-03-31)
 
 
