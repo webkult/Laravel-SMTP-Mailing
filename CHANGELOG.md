@@ -1,3 +1,11 @@
+## [1.11.1](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.11.0...v1.11.1) (2025-03-31)
+
+
+### Bug Fixes
+
+* add new bind ([74fddd7](https://github.com/webkult/Laravel-SMTP-Mailing/commit/74fddd7e06905c7898a3198138597bab7518d8e3))
+* add new bind for alias service ([4a49439](https://github.com/webkult/Laravel-SMTP-Mailing/commit/4a49439f0a1ec184ff0fd188f8ee82d5843b7d37))
+
 # [1.11.0](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.10.0...v1.11.0) (2025-03-31)
 
 
