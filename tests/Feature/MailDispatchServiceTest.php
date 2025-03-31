@@ -147,4 +147,46 @@ class MailDispatchServiceTest extends TestCase
 
         Mail::assertQueued(OutboundMail::class);
     }
+
+    public function test_uses_default_from_when_no_specific_alias_found()
+    {
+        Mail::fake();
+
+        $smtp = SmtpCredential::create([
+            'host' => 'smtp.example.com',
+            'port' => 587,
+            'encryption' => 'tls',
+            'username' => 'default@example.com',
+            'password' => encrypt('secret'),
+        ]);
+
+        SmtpAccountAlias::create([
+            'from_email' => 'default@example.com',
+            'smtp_credential_id' => $smtp->id,
+        ]);
+
+        config(['laravel-smtp-mailing.default_from' => 'default@example.com']);
+
+        $data = new SendMailData(
+            from: 'unknown@example.com',
+            to: 'receiver@example.com',
+            subject: 'Test mit Default From',
+            message: '<p>Dies verwendet den Default From</p>',
+            cc: null,
+            bcc: null,
+            reply_to: null,
+            headers: null,
+            attachments: null
+        );
+
+        app(MailDispatchService::class)->send($data);
+
+        Mail::assertQueued(
+            OutboundMail::class,
+            fn(OutboundMail $mail) =>
+            $mail->data->to === $data->to &&
+            $mail->data->from === $data->from &&
+            $mail->data->subject === $data->subject
+        );
+    }
 }

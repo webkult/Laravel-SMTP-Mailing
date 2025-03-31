@@ -11,5 +11,5 @@ return [
         'smtp_credential_service' => \Webkult\LaravelSmtpMailing\Services\SmtpCredentialService::class,
         'smtp_account_alias_service' => \Webkult\LaravelSmtpMailing\Services\SmtpAccountAliasService::class,
     ],
-
+    'default_from' => 'my@smtp-mail-config-in.database'
 ];
