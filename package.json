@@ -1,6 +1,6 @@
 {
-  "name": "webkult/laravel-smtp-mailing",
-  "version": "1.0.0",
+  "name": "laravel-smtp-mailing",
+  "version": "dev-main",
   "description": "Send mails via FROM alias mapped to specific SMTP credentials in Laravel",
   "keywords": [
     "laravel",
