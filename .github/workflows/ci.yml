@@ -54,16 +54,16 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         run: npx semantic-release
 
-  packagist:
-    name: Update Packagist
-    if: startsWith(github.ref, 'refs/tags/')
-    needs: release
-    runs-on: ubuntu-latest
+  # packagist:
+  #   name: Update Packagist
+  #   if: startsWith(github.ref, 'refs/tags/')
+  #   needs: release
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Notify Packagist
-        run: |
-          curl -X POST https://packagist.org/api/update-package \
-            -d '{"repository":"https://github.com/webkult/laravel-smtp-mailing"}' \
-            -H "Content-Type: application/json" \
-            -H "Authorization: Bearer ${{ secrets.PACKAGIST_TOKEN }}"
+  #   steps:
+  #     - name: Notify Packagist
+  #       run: |
+  #         curl -X POST https://packagist.org/api/update-package \
+  #           -d '{"repository":"https://github.com/webkult/laravel-smtp-mailing"}' \
+  #           -H "Content-Type: application/json" \
+  #           -H "Authorization: Bearer ${{ secrets.PACKAGIST_TOKEN }}"
