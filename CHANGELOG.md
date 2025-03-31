@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.0.0...v1.1.0) (2025-03-31)
+
+
+### Features
+
+* test subject with random str ([719a204](https://github.com/webkult/Laravel-SMTP-Mailing/commit/719a20487b9d615b461a2ff27914fd415b87da88))
+
 # 1.0.0 (2025-03-31)
 
 
