@@ -16,6 +16,15 @@ class MailDispatchService
 {
     const MAILER_NAME = 'smtp_mailer';
 
+    protected string $smtpAccountAliasModel;
+    protected string $smtpCredentialModel;
+
+    public function __construct()
+    {
+        $this->smtpAccountAliasModel = Config::get('laravel-smtp-mailing.models.smtp_account_alias');
+        $this->smtpCredentialModel = Config::get('laravel-smtp-mailing.models.smtp_credential');
+    }
+
     /**
      * @throws SmtpAliasNotFoundException
      */
@@ -43,7 +52,7 @@ class MailDispatchService
      */
     protected function getSmtpCredentials(string $fromEmail)
     {
-        $alias = SmtpAccountAlias::where('from_email', $fromEmail)->orWhere(
+        $alias = $this->smtpAccountAliasModel::where('from_email', $fromEmail)->orWhere(
             'from_email',
             config('laravel-smtp-mailing.default_from')
         )->first();

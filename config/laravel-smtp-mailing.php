@@ -5,6 +5,7 @@ return [
 
     'models' => [
         'smtp_credential' => \Webkult\LaravelSmtpMailing\Models\SmtpCredential::class,
+        'smtp_account_alias' => \Webkult\LaravelSmtpMailing\Models\SmtpAccountAlias::class,
     ],
 
     'services' => [
