@@ -22,12 +22,12 @@ class SmtpAccountAliasService implements SmtpAccountAliasServiceContract
     ) {
     }
 
-    public function create(SmtpAccountAliasData $data): SmtpAccountAliasModelContract
+    public function create(SmtpAccountAliasData $data)
     {
         return $this->createAction->execute($data);
     }
 
-    public function update(SmtpAccountAliasModelContract $alias, SmtpAccountAliasData $data): SmtpAccountAliasModelContract
+    public function update(SmtpAccountAliasModelContract $alias, SmtpAccountAliasData $data)
     {
         return $this->updateAction->execute($alias, $data);
     }

@@ -9,9 +9,9 @@ use Webkult\LaravelSmtpMailing\Models\SmtpCredential as SmtpCredentialModelContr
 
 interface SmtpCredentialServiceContract
 {
-    public function create(SmtpCredentialData $data): SmtpCredentialModelContract;
+    public function create(SmtpCredentialData $data);
 
-    public function update(SmtpCredentialModelContract $smtpCredential, SmtpCredentialData $data): SmtpCredentialModelContract;
+    public function update(SmtpCredentialModelContract $smtpCredential, SmtpCredentialData $data);
 
     public function delete(SmtpCredentialModelContract $smtpCredential): bool;
 }

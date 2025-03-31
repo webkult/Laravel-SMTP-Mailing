@@ -9,9 +9,9 @@ use Webkult\LaravelSmtpMailing\Models\SmtpAccountAlias;
 
 interface SmtpAccountAliasServiceContract
 {
-    public function create(SmtpAccountAliasData $data): SmtpAccountAliasModelContract;
+    public function create(SmtpAccountAliasData $data);
 
-    public function update(SmtpAccountAliasModelContract $alias, SmtpAccountAliasData $data): SmtpAccountAliasModelContract;
+    public function update(SmtpAccountAliasModelContract $alias, SmtpAccountAliasData $data);
 
     public function delete(SmtpAccountAliasModelContract $alias): bool;
 }
