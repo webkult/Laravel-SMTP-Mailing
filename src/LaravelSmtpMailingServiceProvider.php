@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Webkult\LaravelSmtpMailing;
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Webkult\LaravelSmtpMailing\Actions\SmtpAccountAlias\CreateSmtpAccountAliasAction;
 use Webkult\LaravelSmtpMailing\Actions\SmtpAccountAlias\DeleteSmtpAccountAliasAction;
@@ -27,14 +28,13 @@ class LaravelSmtpMailingServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/laravel-smtp-mailing.php', 'laravel-smtp-mailing');
 
         // Bind Models
-        $this->app->bind(
-            SmtpCredentialModelContract::class,
-            config('laravel-smtp-mailing.models.smtp_credential', SmtpCredential::class)
-        );
+        $this->app->bind(SmtpCredentialModelContract::class, function (Application $app) {
+            return $app->make(config('laravel-smtp-mailing.models.smtp_credential', SmtpCredential::class));
+        });
 
         $this->app->bind(
             SmtpAccountAliasModelContract::class,
-            config('laravel-smtp-mailing.models.smtp_account_alias', SmtpAccountAlias::class)
+            fn() => app(config('laravel-smtp-mailing.models.smtp_account_alias', SmtpAccountAlias::class))
         );
 
         // Bind Actions
@@ -70,14 +70,23 @@ class LaravelSmtpMailingServiceProvider extends ServiceProvider
 
         // Bind Services
         $this->app->bind(
-            SmtpCredentialServiceContract::class,
-            config('laravel-smtp-mailing.services.smtp_credential_service', SmtpCredentialService::class)
+            SmtpAccountAliasServiceContract::class,
+            fn() => app(
+                config('laravel-smtp-mailing.services.smtp_account_alias_service', SmtpAccountAliasService::class)
+            )
         );
 
         $this->app->bind(
-            SmtpAccountAliasServiceContract::class,
-            config('laravel-smtp-mailing.services.smtp_account_alias_service', SmtpAccountAliasService::class)
+            SmtpCredentialServiceContract::class,
+            function (Application $app) {
+                $modelClass = config('laravel-smtp-mailing.models.smtp_credential', SmtpCredential::class);
+                $model = $app->make($modelClass); // erstelle Modell-Instanz
+                $serviceClass = config('laravel-smtp-mailing.services.smtp_credential_service', SmtpCredentialService::class);
+
+                return new $serviceClass($model);
+            }
         );
+
     }
 
     public function boot(): void
