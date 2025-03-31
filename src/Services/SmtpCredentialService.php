@@ -10,8 +10,6 @@ use Webkult\LaravelSmtpMailing\Actions\SmtpCredential\UpdateSmtpCredentialAction
 use Webkult\LaravelSmtpMailing\Contracts\SmtpCredentialModelContract;
 use Webkult\LaravelSmtpMailing\Contracts\SmtpCredentialServiceContract;
 use Webkult\LaravelSmtpMailing\Data\SmtpCredentialData;
-use Webkult\LaravelSmtpMailing\Models\SmtpCredential;
-use Illuminate\Support\Facades\Config;
 
 class SmtpCredentialService implements SmtpCredentialServiceContract
 {

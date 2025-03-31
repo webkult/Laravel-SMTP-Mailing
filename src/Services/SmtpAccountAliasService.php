@@ -10,8 +10,6 @@ use Webkult\LaravelSmtpMailing\Actions\SmtpAccountAlias\UpdateSmtpAccountAliasAc
 use Webkult\LaravelSmtpMailing\Contracts\SmtpAccountAliasModelContract;
 use Webkult\LaravelSmtpMailing\Contracts\SmtpAccountAliasServiceContract;
 use Webkult\LaravelSmtpMailing\Data\SmtpAccountAliasData;
-use Webkult\LaravelSmtpMailing\Models\SmtpAccountAlias;
-use Illuminate\Support\Facades\Config;
 
 class SmtpAccountAliasService implements SmtpAccountAliasServiceContract
 {

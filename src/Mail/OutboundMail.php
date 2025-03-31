@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Webkult\LaravelSmtpMailing\Mail;
 
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Mail\Mailable;
 use Symfony\Component\Mime\Email as SymfonyEmail;
 use Webkult\LaravelSmtpMailing\Data\HeaderData;
 use Webkult\LaravelSmtpMailing\Data\SendMailData;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
-
 class OutboundMail extends Mailable implements ShouldQueue
-
 {
     public function __construct(public SendMailData $data)
     {

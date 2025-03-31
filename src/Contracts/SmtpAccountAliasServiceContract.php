@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Webkult\LaravelSmtpMailing\Contracts;
 
 use Webkult\LaravelSmtpMailing\Data\SmtpAccountAliasData;
-use Webkult\LaravelSmtpMailing\Models\SmtpAccountAlias;
 
 interface SmtpAccountAliasServiceContract
 {

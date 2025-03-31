@@ -9,19 +9,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
+use Webkult\LaravelSmtpMailing\Contracts\SmtpAccountAliasModelContract;
 
 /**
  * Class SmtpAccountAlias
  *
  * @package Webkult\LaravelSmtpMailing\Models
+ *
  * @property int $id
  * @property string $from_email
  * @property int $smtp_credential_id
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
+ * @property null|Carbon $created_at
+ * @property null|Carbon $updated_at
  * @property-read SmtpCredential $smtpCredential
  */
-class SmtpAccountAlias extends Model
+class SmtpAccountAlias extends Model implements SmtpAccountAliasModelContract
 {
     use HasFactory;
     use HasTimestamps;

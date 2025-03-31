@@ -40,4 +40,4 @@ class AddSmtpConfigCommand extends Command
             return Command::FAILURE;
         }
     }
-} 
+}

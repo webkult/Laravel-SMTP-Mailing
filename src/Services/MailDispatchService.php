@@ -9,12 +9,11 @@ use Illuminate\Support\Facades\Mail;
 use Webkult\LaravelSmtpMailing\Data\SendMailData;
 use Webkult\LaravelSmtpMailing\Exceptions\SmtpAliasNotFoundException;
 use Webkult\LaravelSmtpMailing\Mail\OutboundMail;
-use Webkult\LaravelSmtpMailing\Models\SmtpAccountAlias;
 use Webkult\LaravelSmtpMailing\Models\SmtpCredential;
 
 class MailDispatchService
 {
-    const MAILER_NAME = 'smtp_mailer';
+    public const MAILER_NAME = 'smtp_mailer';
 
     protected string $smtpAccountAliasModel;
     protected string $smtpCredentialModel;

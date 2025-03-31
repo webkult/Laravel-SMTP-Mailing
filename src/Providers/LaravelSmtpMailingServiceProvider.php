@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Webkult\LaravelSmtpMailing\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Webkult\LaravelSmtpMailing\Contracts\SmtpCredentialModelContract;
 use Webkult\LaravelSmtpMailing\Contracts\SmtpAccountAliasModelContract;
+use Webkult\LaravelSmtpMailing\Contracts\SmtpCredentialModelContract;
 
 class LaravelSmtpMailingServiceProvider extends ServiceProvider
 {
@@ -36,4 +36,4 @@ class LaravelSmtpMailingServiceProvider extends ServiceProvider
             ], 'config');
         }
     }
-} 
+}

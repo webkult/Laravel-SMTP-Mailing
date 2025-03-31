@@ -13,7 +13,6 @@ class SmtpAccountAliasData extends Data
     public function __construct(
         #[Required, Email]
         public string $from_email,
-
         #[Required]
         public int $smtp_credential_id,
     ) {
