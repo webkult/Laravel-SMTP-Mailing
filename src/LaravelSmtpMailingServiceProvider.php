@@ -6,12 +6,6 @@ namespace Webkult\LaravelSmtpMailing;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use Webkult\LaravelSmtpMailing\Actions\SmtpAccountAlias\CreateSmtpAccountAliasAction;
-use Webkult\LaravelSmtpMailing\Actions\SmtpAccountAlias\DeleteSmtpAccountAliasAction;
-use Webkult\LaravelSmtpMailing\Actions\SmtpAccountAlias\UpdateSmtpAccountAliasAction;
-use Webkult\LaravelSmtpMailing\Actions\SmtpCredential\CreateSmtpCredentialAction;
-use Webkult\LaravelSmtpMailing\Actions\SmtpCredential\DeleteSmtpCredentialAction;
-use Webkult\LaravelSmtpMailing\Actions\SmtpCredential\UpdateSmtpCredentialAction;
 use Webkult\LaravelSmtpMailing\Contracts\SmtpAccountAliasModelContract;
 use Webkult\LaravelSmtpMailing\Contracts\SmtpAccountAliasServiceContract;
 use Webkult\LaravelSmtpMailing\Contracts\SmtpCredentialModelContract;
@@ -35,37 +29,6 @@ class LaravelSmtpMailingServiceProvider extends ServiceProvider
         $this->app->bind(
             SmtpAccountAliasModelContract::class,
             fn() => app(config('laravel-smtp-mailing.models.smtp_account_alias', SmtpAccountAlias::class))
-        );
-
-        // Bind Actions
-        $this->app->bind(
-            CreateSmtpCredentialAction::class,
-            config('laravel-smtp-mailing.actions.smtp_credential.create', CreateSmtpCredentialAction::class)
-        );
-
-        $this->app->bind(
-            UpdateSmtpCredentialAction::class,
-            config('laravel-smtp-mailing.actions.smtp_credential.update', UpdateSmtpCredentialAction::class)
-        );
-
-        $this->app->bind(
-            DeleteSmtpCredentialAction::class,
-            config('laravel-smtp-mailing.actions.smtp_credential.delete', DeleteSmtpCredentialAction::class)
-        );
-
-        $this->app->bind(
-            CreateSmtpAccountAliasAction::class,
-            config('laravel-smtp-mailing.actions.smtp_account_alias.create', CreateSmtpAccountAliasAction::class)
-        );
-
-        $this->app->bind(
-            UpdateSmtpAccountAliasAction::class,
-            config('laravel-smtp-mailing.actions.smtp_account_alias.update', UpdateSmtpAccountAliasAction::class)
-        );
-
-        $this->app->bind(
-            DeleteSmtpAccountAliasAction::class,
-            config('laravel-smtp-mailing.actions.smtp_account_alias.delete', DeleteSmtpAccountAliasAction::class)
         );
 
         // Bind Services
