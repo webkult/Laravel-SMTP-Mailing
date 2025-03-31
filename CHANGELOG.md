@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.1.0...v1.2.0) (2025-03-31)
+
+
+### Features
+
+* raise version in composer ([2522e3f](https://github.com/webkult/Laravel-SMTP-Mailing/commit/2522e3fe66d9d5d314fbcdab1afe4fc397945653))
+
 # [1.1.0](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.0.0...v1.1.0) (2025-03-31)
 
 
