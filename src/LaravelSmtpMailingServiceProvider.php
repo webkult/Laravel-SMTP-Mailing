@@ -71,9 +71,13 @@ class LaravelSmtpMailingServiceProvider extends ServiceProvider
         // Bind Services
         $this->app->bind(
             SmtpAccountAliasServiceContract::class,
-            fn() => app(
-                config('laravel-smtp-mailing.services.smtp_account_alias_service', SmtpAccountAliasService::class)
-            )
+            function (Application $app) {
+                $modelClass = config('laravel-smtp-mailing.models.smtp_account_alias_service', SmtpAccountAliasService::class);
+                $model = $app->make($modelClass); // erstelle Modell-Instanz
+                $serviceClass = config('laravel-smtp-mailing.services.smtp_credential_service', SmtpAccountAliasService::class);
+
+                return new $serviceClass($model);
+            }
         );
 
         $this->app->bind(
