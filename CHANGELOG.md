@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.4.0...v1.5.0) (2025-03-31)
+
+
+### Features
+
+* add config and migration to publish laravel config ([445f2af](https://github.com/webkult/Laravel-SMTP-Mailing/commit/445f2af29cacfb8b6dcb569c6857838a9c4ca181))
+
 # [1.4.0](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.3.0...v1.4.0) (2025-03-31)
 
 
