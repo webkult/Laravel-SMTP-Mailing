@@ -69,7 +69,7 @@ class MailDispatchServiceTest extends TestCase
             from: 'missing@example.com',
             to: 'receiver@example.com',
             subject: 'Fehlerfall' . Str::random(10),
-            message: '<p>Kein Alias</p>',
+            message: '<p>Kein Alias</p>' . Str::random(10),
             cc: null,
             bcc: null,
             reply_to: null,
