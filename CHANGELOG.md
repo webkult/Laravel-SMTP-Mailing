@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.8.0...v1.9.0) (2025-03-31)
+
+
+### Features
+
+* remove return values ([ee65ded](https://github.com/webkult/Laravel-SMTP-Mailing/commit/ee65ded4a188e6660a914fa1432bfbd3f5f81e8e))
+
 # [1.8.0](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.7.0...v1.8.0) (2025-03-31)
 
 
