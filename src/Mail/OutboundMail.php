@@ -4,17 +4,29 @@ declare(strict_types=1);
 
 namespace Webkult\LaravelSmtpMailing\Mail;
 
+use Illuminate\Contracts\Mail\Factory as MailFactory;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Mail\Mailable;
+use Illuminate\Support\Str;
 use Symfony\Component\Mime\Email as SymfonyEmail;
 use Webkult\LaravelSmtpMailing\Data\HeaderData;
 use Webkult\LaravelSmtpMailing\Data\SendMailData;
+use Webkult\LaravelSmtpMailing\Services\MailDispatchService;
 
 class OutboundMail extends Mailable implements ShouldQueue
 {
     public function __construct(public SendMailData $data)
     {
+    }
+
+
+    public function send($mailer)
+    {
+        $mailDispatchService = app()->make(MailDispatchService::class);
+        $mailDispatchService->configureMailerByMailerName($this->mailer);
+
+        parent::send($mailer);
     }
 
     public function build(): static

@@ -49,7 +49,7 @@ class MailDispatchService
     /**
      * @throws SmtpAliasNotFoundException
      */
-    protected function getSmtpCredentials(string $fromEmail)
+    public function getSmtpCredentials(string $fromEmail)
     {
         $alias = $this->smtpAccountAliasModel::where('from_email', $fromEmail)->orWhere(
             'from_email',
@@ -62,12 +62,12 @@ class MailDispatchService
         return $alias->smtpCredential;
     }
 
-    protected function getMailerName(string $fromEmail): string
+    public function getMailerName(string $fromEmail): string
     {
-        return self::MAILER_NAME . '_' . md5($fromEmail);
+        return self::MAILER_NAME . '__' . $fromEmail;
     }
 
-    protected function configureMailer(SmtpCredential $smtp, string $configName): void
+    public function configureMailer(SmtpCredential $smtp, string $configName): void
     {
         Config::set("mail.mailers.{$configName}", [
             'transport' => 'smtp',
@@ -79,5 +79,14 @@ class MailDispatchService
             'timeout' => null,
             'auth_mode' => null,
         ]);
+    }
+
+    public function configureMailerByMailerName($mailerName): void
+    {
+        $names = explode(MailDispatchService::MAILER_NAME . '__', $mailerName);
+        $fromEmail = last($names);
+        $smtp = $this->getSmtpCredentials($fromEmail);
+        $configName = $this->getMailerName($fromEmail);
+        $this->configureMailer($smtp, $configName);
     }
 }
