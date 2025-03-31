@@ -2,14 +2,11 @@ name: CI & Release
 
 on:
   push:
-    branches: [ main ]
-    tags:
-      - 'v*.*.*'
   pull_request:
 
 jobs:
   test:
-    name: Run Pest Tests
+    name: Run Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -32,20 +29,40 @@ jobs:
         run: composer test
 
   release:
-    name: Create GitHub Release + Packagist Trigger
-    if: startsWith(github.ref, 'refs/tags/')
+    name: Semantic Release
+    if: github.ref == 'refs/heads/main'
     needs: test
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      - name: Extract Changelog for Tag
-        id: changelog
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: npx semantic-release
+
+  packagist:
+    name: Update Packagist
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Notify Packagist
         run: |
-          TAG_NAME=${GITHUB_REF##*/}
-          BODY=$(awk "/## \[$TAG_NAME\]/,/^##/" CHANGELOG.md | sed '1d;$d')
-          BODY="${BODY//'%'/'%25'}"
-          BODY="${BODY//$'\n'/'%0A'}"
-          BODY="${BODY//$'\r'/'%0D'}"
-          echo "body=$BODY" >> $
+          curl -X POST https://packagist.org/api/update-package \
+            -d '{"repository":"https://github.com/webkult/laravel-smtp-mailing"}' \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer ${{ secrets.PACKAGIST_TOKEN }}"
