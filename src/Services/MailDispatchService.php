@@ -22,17 +22,10 @@ class MailDispatchService
     public function send(SendMailData $data): void
     {
         $fromEmail = strtolower($data->from);
-
-        $alias = SmtpAccountAlias::where('from_email', $fromEmail)->first();
-
-        if (! $alias) {
-            throw new SmtpAliasNotFoundException("No SMTP alias found for {$fromEmail}");
-        }
-
-        $smtp = $alias->smtpCredential;
+        $smtp = $this->getSmtpCredentials($fromEmail);
         $configName = $this->getMailerName($fromEmail);
 
-        if (! app()->environment('testing')) {
+        if (!app()->environment('testing')) {
             $this->configureMailer($smtp, $configName);
             $mailer = Mail::mailer($configName);
         } else {
@@ -45,6 +38,22 @@ class MailDispatchService
             ->send(new OutboundMail($data));
     }
 
+    /**
+     * @throws SmtpAliasNotFoundException
+     */
+    protected function getSmtpCredentials(string $fromEmail)
+    {
+        $alias = SmtpAccountAlias::where('from_email', $fromEmail)->orWhere(
+            'from_email',
+            config('laravel-smtp-mailing.default_from')
+        )->first();
+
+        if (!$alias) {
+            throw new SmtpAliasNotFoundException("No SMTP alias found for {$fromEmail}");
+        }
+        return $alias->smtpCredential;
+    }
+
     protected function getMailerName(string $fromEmail): string
     {
         return self::MAILER_NAME . '_' . md5($fromEmail);
@@ -53,14 +62,14 @@ class MailDispatchService
     protected function configureMailer(SmtpCredential $smtp, string $configName): void
     {
         Config::set("mail.mailers.{$configName}", [
-            'transport'  => 'smtp',
-            'host'       => $smtp->host,
-            'port'       => $smtp->port,
+            'transport' => 'smtp',
+            'host' => $smtp->host,
+            'port' => $smtp->port,
             'encryption' => $smtp->encryption,
-            'username'   => $smtp->username,
-            'password'   => decrypt($smtp->password),
-            'timeout'    => null,
-            'auth_mode'  => null,
+            'username' => $smtp->username,
+            'password' => decrypt($smtp->password),
+            'timeout' => null,
+            'auth_mode' => null,
         ]);
     }
 }
