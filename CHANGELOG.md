@@ -1,3 +1,10 @@
+## [1.11.3](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.11.2...v1.11.3) (2025-03-31)
+
+
+### Bug Fixes
+
+* remove useless and wrong provider ([9223f9e](https://github.com/webkult/Laravel-SMTP-Mailing/commit/9223f9e7b38a4385fdb01e2ddc94d94e37c4efa0))
+
 ## [1.11.2](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.11.1...v1.11.2) (2025-03-31)
 
 
