@@ -39,7 +39,9 @@ class LaravelSmtpMailingServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/laravel-smtp-mailing.php' => config_path('laravel-smtp-mailing.php'),
         ], 'laravel-smtp-mailing-config');
-
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->publishesMigrations([
+            __DIR__ . '/../database/migrations' => database_path('migrations'),
+            'laravel-smtp-mailing-config'
+        ]);
     }
 }
