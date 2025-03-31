@@ -1,3 +1,11 @@
+# [1.6.0](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.5.0...v1.6.0) (2025-03-31)
+
+
+### Features
+
+* add default email to config ([a4857ed](https://github.com/webkult/Laravel-SMTP-Mailing/commit/a4857ed4b987f4e3a2d0cc00367ef3e1ec04cad7))
+* add test for default config ([0812927](https://github.com/webkult/Laravel-SMTP-Mailing/commit/0812927270f85e0d4eee98d2e3cf254ada0a72d0))
+
 # [1.5.0](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.4.0...v1.5.0) (2025-03-31)
 
 
