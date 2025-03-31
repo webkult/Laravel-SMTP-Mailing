@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.10.0...v1.11.0) (2025-03-31)
+
+
+### Features
+
+* trigger rollout ([3228673](https://github.com/webkult/Laravel-SMTP-Mailing/commit/3228673dbdf8204b55416d8dfe15f2a970b8d1d3))
+
 # [1.10.0](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.9.0...v1.10.0) (2025-03-31)
 
 
