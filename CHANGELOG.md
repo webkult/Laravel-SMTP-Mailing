@@ -1,3 +1,11 @@
+# [1.7.0](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.6.0...v1.7.0) (2025-03-31)
+
+
+### Features
+
+* controller using service from config ([5665467](https://github.com/webkult/Laravel-SMTP-Mailing/commit/56654676a404f4f353550e2ee194f73a7d07faa1))
+* use the config models and services ([96a709b](https://github.com/webkult/Laravel-SMTP-Mailing/commit/96a709b5fdb2164c4428fa2ca8cf538769bf7a12))
+
 # [1.6.0](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.5.0...v1.6.0) (2025-03-31)
 
 
