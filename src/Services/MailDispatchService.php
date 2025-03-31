@@ -32,10 +32,14 @@ class MailDispatchService
         $smtp = $alias->smtpCredential;
         $configName = $this->getMailerName($fromEmail);
 
-        $this->configureMailer($smtp, $configName);
+        if (! app()->environment('testing')) {
+            $this->configureMailer($smtp, $configName);
+            $mailer = Mail::mailer($configName);
+        } else {
+            $mailer = Mail::fake();
+        }
 
-        Mail::mailer($configName)
-            ->to($data->to)
+        $mailer->to($data->to)
             ->cc($data->cc)
             ->bcc($data->bcc)
             ->send(new OutboundMail($data));
