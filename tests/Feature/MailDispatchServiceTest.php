@@ -16,7 +16,7 @@ use Webkult\LaravelSmtpMailing\Models\SmtpCredential;
 use Webkult\LaravelSmtpMailing\Models\SmtpAccountAlias;
 use Webkult\LaravelSmtpMailing\Services\MailDispatchService;
 use Webkult\LaravelSmtpMailing\Tests\TestCase;
-
+use Illuminate\Support\Str;
 uses(RefreshDatabase::class);
 
 class MailDispatchServiceTest extends TestCase
@@ -52,7 +52,9 @@ class MailDispatchServiceTest extends TestCase
 
         app(MailDispatchService::class)->send($data);
 
-        Mail::assertQueued(OutboundMail::class, fn (OutboundMail $mail) =>
+        Mail::assertQueued(
+            OutboundMail::class,
+            fn(OutboundMail $mail) =>
             $mail->data->to === $data->to &&
             $mail->data->from === $data->from &&
             $mail->data->subject === $data->subject
@@ -66,7 +68,7 @@ class MailDispatchServiceTest extends TestCase
         $data = new SendMailData(
             from: 'missing@example.com',
             to: 'receiver@example.com',
-            subject: 'Fehlerfall',
+            subject: 'Fehlerfall' . Str::random(10),
             message: '<p>Kein Alias</p>',
             cc: null,
             bcc: null,
