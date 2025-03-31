@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.11.3...v1.12.0) (2025-03-31)
+
+
+### Features
+
+* overload send to generate dynamic content on the fly ([9df888c](https://github.com/webkult/Laravel-SMTP-Mailing/commit/9df888c518a5b6fdc9e012b7a9ad6cd7f26d8f9e))
+
 ## [1.11.3](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.11.2...v1.11.3) (2025-03-31)
 
 
