@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace Webkult\LaravelSmtpMailing\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Config;
 use Throwable;
 use Webkult\LaravelSmtpMailing\Data\SendMailData;
 use Webkult\LaravelSmtpMailing\Exceptions\SmtpAliasNotFoundException;
-use Webkult\LaravelSmtpMailing\Services\MailDispatchService;
 
 class MailController
 {
-    public function __invoke(SendMailData $data, MailDispatchService $mailService): JsonResponse
+    public function __invoke(SendMailData $data): JsonResponse
     {
         try {
+            $mailService = app(Config::get('laravel-smtp-mailing.services.mail_dispatch_service'));
             $mailService->send($data);
 
             return response()->json([
