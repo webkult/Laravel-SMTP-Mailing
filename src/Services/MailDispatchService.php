@@ -75,7 +75,7 @@ class MailDispatchService
             'port' => $smtp->port,
             'encryption' => $smtp->encryption,
             'username' => $smtp->username,
-            'password' => decrypt($smtp->password),
+            'password' => $smtp->password,
             'timeout' => null,
             'auth_mode' => null,
         ]);
