@@ -51,11 +51,12 @@ class MailDispatchService
      */
     public function getSmtpCredentials(string $fromEmail)
     {
-        $alias = $this->smtpAccountAliasModel::where('from_email', $fromEmail)
-            ->when(
-                config('laravel-smtp-mailing.enable_like_query_for_alias'),
-                fn($query) => $query->orWhere('from_email', 'like', "%{$fromEmail}%")
-            )->first();
+        $alias = $this->smtpAccountAliasModel::where('from_email', $fromEmail)->first();
+
+        if (!$alias && config('laravel-smtp-mailing.enable_domain_search')) {
+            $domain = ltrim(strrchr($fromEmail, '@'), '@');
+            $alias = $this->smtpAccountAliasModel::where('from_email', $domain)->first();
+        }
 
         if (!$alias) {
             $alias = $this->smtpAccountAliasModel::where('from_email', config('laravel-smtp-mailing.default_from'))

@@ -15,5 +15,5 @@ return [
     ],
 
     'default_from' => 'my@smtp-mail-config-in.database',
-    'enable_like_query_for_alias' => false,
+    'enable_domain_search' => false,
 ];

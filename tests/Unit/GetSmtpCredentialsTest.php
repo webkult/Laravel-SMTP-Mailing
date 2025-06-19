@@ -125,7 +125,7 @@ class GetSmtpCredentialsTest extends TestCase
         $this->assertNotEquals('smtp.default.com', $result->host);
     }
 
-    public function test_dont_find_alias_by_like_if_like_query_config_disabled(): void
+    public function test_dont_find_domain_alias_if_domain_search_config_disabled(): void
     {
         $smtp = SmtpCredential::create([
             'host' => 'smtp.example.com',
@@ -136,18 +136,18 @@ class GetSmtpCredentialsTest extends TestCase
         ]);
 
         SmtpAccountAlias::create([
-            'from_email' => 'noreply@example.com',
+            'from_email' => 'example.com',
             'smtp_credential_id' => $smtp->id,
         ]);
 
-        config(['laravel-smtp-mailing.enable_like_query_for_alias' => false]);
+        config(['laravel-smtp-mailing.enable_domain_search' => false]);
 
         $this->expectException(SmtpAliasNotFoundException::class);
 
-        app(MailDispatchService::class)->getSmtpCredentials('@example.com');
+        app(MailDispatchService::class)->getSmtpCredentials('noreply@example.com');
     }
 
-    public function test_returns_alias_found_by_like_if_like_query_config_enabled(): void
+    public function test_returns_domain_alias_if_domain_search_config_enabled(): void
     {
         $smtp = SmtpCredential::create([
             'host' => 'smtp.example.com',
@@ -158,13 +158,13 @@ class GetSmtpCredentialsTest extends TestCase
         ]);
 
         SmtpAccountAlias::create([
-            'from_email' => 'noreply@example.com',
+            'from_email' => 'example.com',
             'smtp_credential_id' => $smtp->id,
         ]);
 
-        config(['laravel-smtp-mailing.enable_like_query_for_alias' => true]);
+        config(['laravel-smtp-mailing.enable_domain_search' => true]);
 
-        $result = app(MailDispatchService::class)->getSmtpCredentials('@example.com');
+        $result = app(MailDispatchService::class)->getSmtpCredentials('noreply@example.com');
 
         $this->assertInstanceOf(SmtpCredential::class, $result);
         $this->assertEquals($smtp->id, $result->id);
