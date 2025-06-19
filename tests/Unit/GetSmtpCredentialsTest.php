@@ -13,7 +13,7 @@ uses(RefreshDatabase::class);
 
 class GetSmtpCredentialsTest extends TestCase
 {
-    public function test_throws_exception_when_no_alias_exists()
+    public function test_throws_exception_when_no_alias_exists(): void
     {
         $this->expectException(SmtpAliasNotFoundException::class);
 
@@ -125,7 +125,7 @@ class GetSmtpCredentialsTest extends TestCase
         $this->assertNotEquals('smtp.default.com', $result->host);
     }
 
-    public function test_dont_find_alias_by_like_if_like_query_config_disabled()
+    public function test_dont_find_alias_by_like_if_like_query_config_disabled(): void
     {
         $smtp = SmtpCredential::create([
             'host' => 'smtp.example.com',
@@ -146,7 +146,8 @@ class GetSmtpCredentialsTest extends TestCase
 
         app(MailDispatchService::class)->getSmtpCredentials('@example.com');
     }
-    public function test_returns_alias_found_by_like_if_like_query_config_enabled()
+
+    public function test_returns_alias_found_by_like_if_like_query_config_enabled(): void
     {
         $smtp = SmtpCredential::create([
             'host' => 'smtp.example.com',
