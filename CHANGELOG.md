@@ -1,3 +1,16 @@
+# [1.13.0](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.12.0...v1.13.0) (2025-06-19)
+
+
+### Bug Fixes
+
+* default_from only used when alias not found ([6146d90](https://github.com/webkult/Laravel-SMTP-Mailing/commit/6146d9059c1fe838569c180b3435f2f25541632a))
+
+
+### Features
+
+* enable domain search and fix fuzzy selection of alias ([864b633](https://github.com/webkult/Laravel-SMTP-Mailing/commit/864b633c085946f75e4d5b36ca1aaa96bee78f7f))
+* like search for alias can be enabled via config ([74bc269](https://github.com/webkult/Laravel-SMTP-Mailing/commit/74bc2691afd1ff698d07fbe9cc3edab8d4d38c22))
+
 # [1.12.0](https://github.com/webkult/Laravel-SMTP-Mailing/compare/v1.11.3...v1.12.0) (2025-03-31)
 
 
