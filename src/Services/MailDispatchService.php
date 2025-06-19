@@ -51,10 +51,12 @@ class MailDispatchService
      */
     public function getSmtpCredentials(string $fromEmail)
     {
-        $alias = $this->smtpAccountAliasModel::where('from_email', $fromEmail)->orWhere(
-            'from_email',
-            config('laravel-smtp-mailing.default_from')
-        )->first();
+        $alias = $this->smtpAccountAliasModel::where('from_email', $fromEmail)->first();
+
+        if (!$alias) {
+            $alias = $this->smtpAccountAliasModel::where('from_email', config('laravel-smtp-mailing.default_from'))
+                ->first();
+        }
 
         if (!$alias) {
             throw new SmtpAliasNotFoundException("No SMTP alias found for {$fromEmail}");
