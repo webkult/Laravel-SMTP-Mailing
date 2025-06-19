@@ -124,4 +124,49 @@ class GetSmtpCredentialsTest extends TestCase
         $this->assertNotEquals($defaultSmtp->id, $result->id);
         $this->assertNotEquals('smtp.default.com', $result->host);
     }
+
+    public function test_dont_find_alias_by_like_if_like_query_config_disabled()
+    {
+        $smtp = SmtpCredential::create([
+            'host' => 'smtp.example.com',
+            'port' => 587,
+            'encryption' => 'tls',
+            'username' => 'noreply@example.com',
+            'password' => encrypt('secret'),
+        ]);
+
+        SmtpAccountAlias::create([
+            'from_email' => 'noreply@example.com',
+            'smtp_credential_id' => $smtp->id,
+        ]);
+
+        config(['laravel-smtp-mailing.enable_like_query_for_alias' => false]);
+
+        $this->expectException(SmtpAliasNotFoundException::class);
+
+        app(MailDispatchService::class)->getSmtpCredentials('@example.com');
+    }
+    public function test_returns_alias_found_by_like_if_like_query_config_enabled()
+    {
+        $smtp = SmtpCredential::create([
+            'host' => 'smtp.example.com',
+            'port' => 587,
+            'encryption' => 'tls',
+            'username' => 'noreply@example.com',
+            'password' => encrypt('secret'),
+        ]);
+
+        SmtpAccountAlias::create([
+            'from_email' => 'noreply@example.com',
+            'smtp_credential_id' => $smtp->id,
+        ]);
+
+        config(['laravel-smtp-mailing.enable_like_query_for_alias' => true]);
+
+        $result = app(MailDispatchService::class)->getSmtpCredentials('@example.com');
+
+        $this->assertInstanceOf(SmtpCredential::class, $result);
+        $this->assertEquals($smtp->id, $result->id);
+        $this->assertEquals('smtp.example.com', $result->host);
+    }
 }
