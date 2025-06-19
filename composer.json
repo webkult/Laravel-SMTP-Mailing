@@ -1,6 +1,6 @@
 {
   "name": "webkult/laravel-smtp-mailing",
-  "description": "This package allows you to integrate an API to your Project to send Mails via FROM Parameter with diffrent SMTP Accounts change via FROM",
+  "description": "This package allows you to integrate an API to your Project to send Mails via FROM Parameter with different SMTP Accounts change via FROM",
   "type": "library",
   "license": "GPL-3.0-or-later",
   "autoload": {
