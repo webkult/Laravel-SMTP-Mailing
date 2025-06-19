@@ -14,5 +14,6 @@ return [
         'mail_dispatch_service' => \Webkult\LaravelSmtpMailing\Services\MailDispatchService::class,
     ],
 
-    'default_from' => 'my@smtp-mail-config-in.database'
+    'default_from' => 'my@smtp-mail-config-in.database',
+    'enable_like_query_for_alias' => false,
 ];
